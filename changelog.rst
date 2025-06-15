@@ -1,7 +1,8 @@
 Changelog
 =========
 
-
+- :support:`15` bump several requirement's minimum version for security
+  reasons. c.f. Pull Request #16.
 - :release:`0.9.1 <2023-10-04>`
 - :bug:`-` explicitly import the ``__version__`` to test for it (rather than
   assume it is a attribute of the main module).
