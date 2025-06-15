@@ -1,6 +1,9 @@
 Changelog
 =========
 
+- :release:`0.9.2 <2025-06-14>`
+- :support:`-` bump minimum versions of ``twine`` and ``pkginfo`` to play nice
+  with current tooling (i.e. Python 3.13)
 - :support:`-` drop ``minchin.__init__.py`` namespace only file.
 - :support:`15` bump several requirement's minimum version for security
   reasons. c.f. Pull Request #16.

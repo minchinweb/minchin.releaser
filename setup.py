@@ -40,7 +40,8 @@ AUTHOR_EMAIL = find_meta(*META_PATH, meta_key="email")
 URL = find_meta(*META_PATH, meta_key="url")
 LICENSE = find_meta(*META_PATH, meta_key="license")
 
-PACKAGES = setuptools.find_packages(exclude=("vendor_src",))
+# PACKAGES = setuptools.find_packages(exclude=("vendor_src",))
+PACKAGES = ["minchin", ]
 
 INSTALL_REQUIRES = [
     # also vendorized minchin.text >= 6.0.0
@@ -114,6 +115,8 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3 :: Only",
     "Natural Language :: English",
     "Intended Audience :: Developers",
