@@ -49,10 +49,12 @@ INSTALL_REQUIRES = [
     "invoke >= 2.0.0",  # min. needed to support Python 3.11
     "isort >= 5",
     "semantic_version",
-    "twine >= 5.0.0",
+    "twine >= 5.0.0",  # min. needed to support Python 3.13
     "wheel >= 0.38.1",
     # for pyproject.toml projects (i.e. without a `setup.py`)
     "build",
+    # minimum for twine >= 5.0.0 and/or setuptools > 75.6.0
+    "pkginfo >= 1.12.0",
     # sub-dependencies, minimums for security reasons
     "bleach >= 3.3.0",
     "certifi >= 2024.7.4",
