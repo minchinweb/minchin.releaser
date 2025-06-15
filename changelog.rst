@@ -1,6 +1,7 @@
 Changelog
 =========
 
+- :support:`-` drop ``minchin.__init__.py`` namespace only file.
 - :support:`15` bump several requirement's minimum version for security
   reasons. c.f. Pull Request #16.
 - :release:`0.9.1 <2023-10-04>`
