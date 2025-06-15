@@ -78,7 +78,7 @@ def server_url(server_name, download=False):
 
 def pypi_name(ctx):
     """
-    Determine name of package to install from (test)PyPI server.
+    Determine name of package to install from (test) PyPI server.
 
     Defaults to "module_name", but can be overwritten by "pypi_name".
     """
@@ -392,6 +392,7 @@ def check_local_install(ctx, version, ext, server="local"):
                     pip_args,
                 ),
                 hide=True,
+                warn=True,  # so we don't bail if the command fails
             )
             if result.failed:
                 print(
@@ -402,7 +403,7 @@ def check_local_install(ctx, version, ext, server="local"):
                 print(result.stderr)
 
                 if install_try_count > INSTALL_RETRIES:
-                    print("** Waiting 30 seconds to try again... **")
+                    print("    ** Waiting 30 seconds to try again... **")
                 else:
                     sys.exit(1)
             else:
