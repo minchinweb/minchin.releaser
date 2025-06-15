@@ -1,6 +1,7 @@
 Changelog
 =========
 
+- :release:`0.9.5 <2025-06-14>`
 - :release:`0.9.4 <2025-06-14>`
 - :feature:`- minor` allow several retries to install a package from the PyPI
   server (after uploading)
