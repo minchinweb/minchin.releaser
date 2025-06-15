@@ -380,21 +380,23 @@ def check_local_install(ctx, version, ext, server="local"):
         install_try_count = 0
         while True:
             install_try_count = install_try_count + 1
-            result = invoke.run(
-                ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(
-                    os.sep,
-                    environment,
-                    VENV_BIN,
-                    PIP_EXT,
-                    server_url(server, download=True),
-                    pypi_name(ctx),
-                    version,
-                    pip_args,
-                ),
-                hide=True,
-                warn=True,  # so we don't bail if the command fails
-            )
-            if result.failed:
+            try:
+                result = invoke.run(
+                    ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(
+                        os.sep,
+                        environment,
+                        VENV_BIN,
+                        PIP_EXT,
+                        server_url(server, download=True),
+                        pypi_name(ctx),
+                        version,
+                        pip_args,
+                    ),
+                    hide=True,
+                    warn=True,  # so we don't bail if the command fails
+                )
+            except invoke.exceptions.Failure:
+            # if result.failed:
                 print(
                     "[{}ERROR{}] Something broke trying to install your package.".format(
                         ERROR_COLOR, RESET_COLOR
@@ -406,7 +408,7 @@ def check_local_install(ctx, version, ext, server="local"):
                     print("    ** Waiting 30 seconds to try again... **")
                 else:
                     sys.exit(1)
-            else:
+            finally:
                 break
 
     print("** Test version of installed package **")
