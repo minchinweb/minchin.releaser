@@ -72,7 +72,7 @@ def server_url(server_name, download=False):
     elif server_name in [
         "pypi",
     ]:
-        return r"https://pypi.org/pypi"
+        return r"https://pypi.org/simple"
 
 
 def pypi_name(ctx):
@@ -375,7 +375,7 @@ def check_local_install(ctx, version, ext, server="local"):
             hide=True,
         )
     else:
-        # print("  **Install from server**")
+        print("** Install package from server **")
         result = invoke.run(
             ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(
                 os.sep,
