@@ -1,6 +1,7 @@
 Changelog
 =========
 
+- :release:`0.9.3 <2025-06-14>`
 - :bug:`-` update pypi.org URL
 - :release:`0.9.2 <2025-06-14>`
 - :support:`-` bump minimum versions of ``twine`` and ``pkginfo`` to play nice
