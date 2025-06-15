@@ -22,3 +22,6 @@ RESET_COLOR = colorama.Style.RESET_ALL
 PIP_EXT = ""
 # name of scripts folder
 VENV_BIN = "Scripts" if os.name == "nt" else "bin"
+
+# how many times to try re-installing the package
+INSTALL_RETRIES = 3

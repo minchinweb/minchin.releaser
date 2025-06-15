@@ -26,6 +26,7 @@ from .constants import (
     VENV_BIN,
     WARNING_COLOR,
     __version__,
+    INSTALL_RETRIES,
 )
 from .util import check_configuration, check_existence
 from .vendorize import vendorize
@@ -376,27 +377,37 @@ def check_local_install(ctx, version, ext, server="local"):
         )
     else:
         print("** Install package from server **")
-        result = invoke.run(
-            ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(
-                os.sep,
-                environment,
-                VENV_BIN,
-                PIP_EXT,
-                server_url(server, download=True),
-                pypi_name(ctx),
-                version,
-                pip_args,
-            ),
-            hide=True,
-        )
-        if result.failed:
-            print(
-                "[{}ERROR{}] Something broke trying to install your package.".format(
-                    ERROR_COLOR, RESET_COLOR
-                )
+        install_try_count = 0
+        while True:
+            install_try_count =+ 1
+            result = invoke.run(
+                ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(
+                    os.sep,
+                    environment,
+                    VENV_BIN,
+                    PIP_EXT,
+                    server_url(server, download=True),
+                    pypi_name(ctx),
+                    version,
+                    pip_args,
+                ),
+                hide=True,
             )
-            print(result.stderr)
-            sys.exit(1)
+            if result.failed:
+                print(
+                    "[{}ERROR{}] Something broke trying to install your package.".format(
+                        ERROR_COLOR, RESET_COLOR
+                    )
+                )
+                print(result.stderr)
+
+                if install_try_count > INSTALL_RETRIES:
+                    print("** Waiting 30 seconds to try again... **")
+                else:
+                    sys.exit(1)
+            else:
+                break
+
     print("** Test version of installed package **")
 
     # this is (supposed) to be the same command, but command line escaping is
