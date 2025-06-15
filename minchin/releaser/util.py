@@ -63,7 +63,9 @@ def check_existence(
         base_key (str):
     """
     if allow_undefined and (to_check is None or to_check.lower() == "none"):
-        print("{: <14} -> {}UNDEFINED{}".format(display_name, WARNING_COLOR, RESET_COLOR))
+        print(
+            "{: <14} -> {}UNDEFINED{}".format(display_name, WARNING_COLOR, RESET_COLOR)
+        )
         return
     else:
         if config_key is None:
@@ -82,5 +84,7 @@ def check_existence(
             raise FileNotFoundError(
                 "[{}ERROR{}] '{}', as given, doesn't "
                 "exist. For configuration key '{}', was "
-                "given: {}".format(ERROR_COLOR, RESET_COLOR, display_name, config_key, to_check)
+                "given: {}".format(
+                    ERROR_COLOR, RESET_COLOR, display_name, config_key, to_check
+                )
             )

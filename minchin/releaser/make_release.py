@@ -21,12 +21,12 @@ from ._vendor import text
 from .constants import (
     ERROR_COLOR,
     GOOD_COLOR,
+    INSTALL_RETRIES,
     PIP_EXT,
     RESET_COLOR,
     VENV_BIN,
     WARNING_COLOR,
     __version__,
-    INSTALL_RETRIES,
 )
 from .util import check_configuration, check_existence
 from .vendorize import vendorize
@@ -379,7 +379,7 @@ def check_local_install(ctx, version, ext, server="local"):
         print("** Install package from server **")
         install_try_count = 0
         while True:
-            install_try_count =+ 1
+            install_try_count = install_try_count + 1
             result = invoke.run(
                 ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(
                     os.sep,
@@ -426,7 +426,7 @@ def check_local_install(ctx, version, ext, server="local"):
     else:
         result = invoke.run(
             ".{0}env{0}{1}{0}{2}{0}python{3} -c "
-            "'exec(\\\"\\\"\\\"from {4} import __version__\\nprint(__version__)\\\"\\\"\\\")'".format(
+            '\'exec(\\"\\"\\"from {4} import __version__\\nprint(__version__)\\"\\"\\")\''.format(
                 os.sep,
                 environment,
                 VENV_BIN,
@@ -497,18 +497,18 @@ def make_release(
     build_pyproject = None
     try:
         check_existence("setup.py", "setup.py", relative_to=here)
-    except FileNotFoundError as e:
+    except FileNotFoundError:
         try:
             check_existence("pyproject.toml", "pyproject.toml", relative_to=here)
-        except FileNotFoundError as e2:
+        except FileNotFoundError:
             print("""Some error message""")
             sys.exit(2)
         else:
             build_pyproject = True
-            print(" "*18 + "Build using 'pyproject.toml'")
+            print(" " * 18 + "Build using 'pyproject.toml'")
     else:
         build_setup_py = True
-        print(" "*18 + "Build using 'setup.py'")
+        print(" " * 18 + "Build using 'setup.py'")
     print()
 
     text.subtitle("Git -- Clean directory?")
