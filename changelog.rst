@@ -1,9 +1,9 @@
 Changelog
 =========
 
-- :release:`0.10.0 <2025-06-14>`
-- :feature:`-` allow several retries to install a package from the PyPI server
-  (after uploading)
+- :release:`0.9.4 <2025-06-14>`
+- :feature:`- minor` allow several retries to install a package from the PyPI
+  server (after uploading)
 - :release:`0.9.3 <2025-06-14>`
 - :bug:`-` update pypi.org URL
 - :release:`0.9.2 <2025-06-14>`
