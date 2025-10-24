@@ -49,6 +49,7 @@ INSTALL_REQUIRES = [
     "invoke >= 2.0.0",  # min. needed to support Python 3.11
     "isort >= 5",
     "semantic_version",
+    "setuptools",
     "twine >= 5.0.0",  # min. needed to support Python 3.13
     "wheel >= 0.38.1",
     # for pyproject.toml projects (i.e. without a `setup.py`)
