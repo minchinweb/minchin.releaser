@@ -59,11 +59,11 @@ INSTALL_REQUIRES = [
     # sub-dependencies, minimums for security reasons
     "bleach >= 3.3.0",
     "certifi >= 2024.7.4",
-    "idna>=3.7",
+    "idna >= 3.7",
     "pygments >= 2.15.0",
     "requests >= 2.32.4",
-    "urllib3 >= 2.2.2",
-    "zipp>=3.19.1",
+    "urllib3 >= 2.5.0",
+    "zipp >= 3.19.1",
 ]
 
 EXTRA_REQUIRES = {
