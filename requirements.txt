@@ -98,3 +98,6 @@ wheel==0.45.1
     # via minchin.releaser (setup.py)
 zipp==3.23.0
     # via minchin.releaser (setup.py)
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
