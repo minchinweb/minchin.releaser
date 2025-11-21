@@ -57,13 +57,11 @@ INSTALL_REQUIRES = [
     # minimum for twine >= 5.0.0 and/or setuptools > 75.6.0
     "pkginfo >= 1.12.0",
     # sub-dependencies, minimums for security reasons
-    "bleach >= 3.3.0",
     "certifi >= 2024.7.4",
     "idna >= 3.7",
     "pygments >= 2.15.0",
     "requests >= 2.32.4",
     "urllib3 >= 2.5.0",
-    "zipp >= 3.19.1",
 ]
 
 EXTRA_REQUIRES = {
