@@ -85,7 +85,7 @@ smmap==5.0.2
     # via gitdb
 twine==6.2.0
     # via minchin.releaser (setup.py)
-urllib3==2.5.0
+urllib3==2.6.3
     # via
     #   minchin.releaser (setup.py)
     #   requests
