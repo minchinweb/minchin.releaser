@@ -1,27 +1,10 @@
-Minchin.Releaser
-================
+.. image:: https://raw.githubusercontent.com/MinchinWeb/minchin.releaser/master/minchin.releaser-logo-4x.png
+   :alt: minchin.releaser
+   :align: center
 
-Tools to make releasing Python packages easier.
+*Minchin dot Releaser* is a tool to make releasing Python packages easier.
 
-.. image:: https://img.shields.io/pypi/v/minchin.releaser.svg?style=flat
-    :target: https://pypi.python.org/pypi/minchin.releaser/
-    :alt: PyPI version number
-
-.. image:: https://img.shields.io/badge/-Changelog-success?style=flat
-    :target: https://github.com/MinchinWeb/minchin.releaser/blob/master/changelog.rst
-    :alt: Changelog
-
-.. image:: https://img.shields.io/pypi/pyversions/minchin.releaser?style=flat
-    :target: https://pypi.python.org/pypi/minchin.releaser/
-    :alt: Supported Python version
-
-.. image:: https://img.shields.io/pypi/l/minchin.releaser.svg?style=flat&color=green
-    :target: https://github.com/MinchinWeb/minchin.releaser/blob/master/LICENSE.txt
-    :alt: License
-
-.. image:: https://img.shields.io/pypi/dm/minchin.releaser.svg?style=flat
-    :target: https://pypi.python.org/pypi/minchin.releaser/
-    :alt: Download Count
+|Version| |Changelog| |Pythons| |License| |Downloads|
 
 *Minchin dot Releaser* is currently set up as an
 `invoke <http://www.pyinvoke.org/>`_ task. It is designed to provide a single
@@ -289,3 +272,25 @@ Sample ``invoke.yaml``
                 dest: .
                 requirements: ..\minchin.text\requirements.in
         vendor_override_src: vendor_src
+
+
+
+.. |Version| image:: https://img.shields.io/pypi/v/minchin.releaser.svg?style=flat
+    :target: https://pypi.python.org/pypi/minchin.releaser/
+    :alt: PyPI version number
+
+.. |Downloads| https://img.shields.io/pypi/dm/minchin.releaser.svg?style=flat
+    :target: https://pypi.python.org/pypi/minchin.releaser/
+    :alt: Download Count
+
+.. |Changelog| image:: https://img.shields.io/badge/-Changelog-success?style=flat
+    :target: https://github.com/MinchinWeb/minchin.releaser/blob/master/changelog.rst
+    :alt: Changelog
+
+.. |License| https://img.shields.io/pypi/l/minchin.releaser.svg?style=flat&color=green
+    :target: https://github.com/MinchinWeb/minchin.releaser/blob/master/LICENSE.txt
+    :alt: License
+
+.. |Pythons| image:: https://img.shields.io/pypi/pyversions/minchin.releaser?style=flat
+    :target: https://pypi.python.org/pypi/minchin.releaser/
+    :alt: Supported Python version

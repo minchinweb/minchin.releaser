@@ -1,6 +1,7 @@
 Changelog
 =========
 
+- :support:`14` Add project logo
 - :release:`0.9.6 <2025-10-24>`
 - :bug:`25` add ``setuptools`` as an explicit install requirement.
 - :release:`0.9.5 <2025-06-14>`
