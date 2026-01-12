@@ -1,3 +1,164 @@
 [build-system]
 requires = ["setuptools >= 64"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = [
+    "minchin*",
+]
+exclude = [
+    "build",
+    "dist",
+    "docs",
+    "env",
+    "test",
+    "tests",
+]
+
+[tool.setuptools.dynamic]
+# this has to be the place the version is located via static analysis
+version = {attr = "minchin.releaser.constants.__version__"}
+# description = {attr = "minchin..releaser.constants.__description__"}  # must be pulled from file
+readme = {file = ["README.rst"], content-type = "text/x-rst"}
+# dependencies = {file = [".requirements/base.in"]}
+
+[tool.setuptools.dynamic.optional-dependencies]
+# dev = {file = [".requirements/dev.in"] }
+# release = {file = [".requirements/release.in"] }
+# docs = {file = [".requirements/docs.in"] }
+
+[project]
+name = "minchin.releaser"
+description = "A collection of tools designed to make releasing Python packages easier."
+dynamic = [
+    "version",
+    # "description",
+    "readme",
+    # "dependencies",
+    # "optional-dependencies",
+]
+authors = [
+    {name = "William Minchin", email="w_minchin@hotmail.com" },
+]
+maintainers = [
+    {name = "William Minchin", email="w_minchin@hotmail.com" },
+]
+dependencies = [
+    # also vendorized minchin.text >= 6.0.0
+    "colorama >= 0.2.5",
+    "gitpython >= 3.1.41",
+    "invoke >= 2.0.0",  # min. needed to support Python 3.11
+    "isort >= 5",
+    "semantic_version",
+    "setuptools",
+    "twine >= 5.0.0",  # min. needed to support Python 3.13
+    "wheel >= 0.38.1",
+    # for pyproject.toml projects (i.e. without a `setup.py`)
+    "build",
+    # minimum for twine >= 5.0.0 and/or setuptools > 75.6.0
+    "pkginfo >= 1.12.0",
+    # sub-dependencies, minimums for security reasons
+    "certifi >= 2024.7.4",
+    "idna >= 3.7",
+    "pygments >= 2.15.0",
+    "requests >= 2.32.4",
+    "urllib3 >= 2.6.3",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*", ]
+# full list of Classifiers at
+# https://pypi.python.org/pypi?%3Aaction=list_classifiers
+classifiers = [
+    #   having an unknown classifier should keep PyPI from accepting the
+    #   package as an upload
+    # 'Private :: Do Not Upload',
+    # 'Development Status :: 1 - Planning',
+    # 'Development Status :: 2 - Pre-Alpha',
+    # 'Development Status :: 3 - Alpha',
+    # "Development Status :: 4 - Beta",
+    'Development Status :: 5 - Production/Stable',
+    # 'Development Status :: 6 - Mature',
+    # 'Development Status :: 7 - Inactive',
+    # 'Programming Language :: Python :: 2',
+    # 'Programming Language :: Python :: 2.6',
+    # 'Programming Language :: Python :: 2.7',
+    # 'Programming Language :: Python :: 2 :: Only',
+    "Programming Language :: Python :: 3",
+    # 'Programming Language :: Python :: 3.2',
+    # 'Programming Language :: Python :: 3.3',
+    # 'Programming Language :: Python :: 3.4',
+    # "Programming Language :: Python :: 3.5",
+    # "Programming Language :: Python :: 3.6",
+    # "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Natural Language :: English",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Environment :: Console",
+]
+
+[project.optional-dependencies]
+build = [
+    "pip-tools",
+    # "minchin.releaser >= 0.8.2",
+]
+docs = [
+    # 'sphinx >= 1.4',  # theme requires at least 1.4
+    # 'cloud_sptheme >= 1.8',
+    # 'releases',
+    # 'Babel >= 1.3, != 2.0',  # 2.0 breaks on Windows
+]
+test = [
+    # 'green >= 1.9.4',  # v2 works
+    # 'coverage',
+    # 'isort',
+    # 'pydocstyle',
+    # 'pycodestyle',
+    # 'check-manifest'
+    # "pytest",
+    # https://pypi.org/project/pytest-xdist/
+]
+lint = [
+    "black",
+    "isort",
+]
+
+[project.urls]
+# "Homepage" =
+"Bug Tracker" = "https://github.com/MinchinWeb/minchin.releaser/issues"
+# Documentation =
+Repository = "https://github.com/minchinweb/minchin.releaser"
+Changelog = "https://github.com/MinchinWeb/minchin.releaser/blob/master/changelog.rst"
+# "Release Notes"
+
+[tool.isort]
+# Maintain compatibility with Black
+profile = "black"
+
+atomic = true
+
+# Sort imports within their section independent of the import type
+force_sort_within_sections = true
+
+known_first_party = "minchin"
+sections = "FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+
+[tool.check-manifest]
+ignore = [
+    ".editorconfig",
+    "*.sublime-project",
+    "vendor_src/*",
+]

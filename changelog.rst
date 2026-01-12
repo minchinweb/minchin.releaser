@@ -1,6 +1,8 @@
 Changelog
 =========
 
+- :support:`19` Move from ``setup.py`` to ``pyproject.toml`` configuration.
+  c.f. `AutoLoader Issue #2`_.
 - :support:`14` Add project logo
 - :release:`0.9.6 <2025-10-24>`
 - :bug:`25` add ``setuptools`` as an explicit install requirement.
@@ -108,3 +110,5 @@ Changelog
 - :release:`0.2.1 <2016-11-18>`
 - :bug:`-` specify downloading of non-cached version of the package for
   multiple formats can be properly and individually tested.
+
+.. _AutoLoader Issue #2: https://github.com/minchinweb/minchin.pelican.plugins.autoloader/issues/2

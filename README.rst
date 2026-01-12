@@ -279,7 +279,7 @@ Sample ``invoke.yaml``
     :target: https://pypi.python.org/pypi/minchin.releaser/
     :alt: PyPI version number
 
-.. |Downloads| https://img.shields.io/pypi/dm/minchin.releaser.svg?style=flat
+.. |Downloads| image:: https://img.shields.io/pypi/dm/minchin.releaser.svg?style=flat
     :target: https://pypi.python.org/pypi/minchin.releaser/
     :alt: Download Count
 
@@ -287,7 +287,7 @@ Sample ``invoke.yaml``
     :target: https://github.com/MinchinWeb/minchin.releaser/blob/master/changelog.rst
     :alt: Changelog
 
-.. |License| https://img.shields.io/pypi/l/minchin.releaser.svg?style=flat&color=green
+.. |License| image:: https://img.shields.io/pypi/l/minchin.releaser.svg?style=flat&color=green
     :target: https://github.com/MinchinWeb/minchin.releaser/blob/master/LICENSE.txt
     :alt: License
 
