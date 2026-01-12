@@ -1,16 +1,16 @@
 import os
+from pathlib import Path
 import re
 import shutil
 import sys
 import textwrap
-from pathlib import Path
 
 import colorama
 import git  # packaged as 'gitpython'
 import invoke
+from invoke import task
 import isort
 import semantic_version
-from invoke import task
 from semantic_version import Version
 
 # try:
