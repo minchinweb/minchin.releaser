@@ -42,11 +42,17 @@ bare_version_re = re.compile(r"__version__ = [\"\']{1,3}([\.\dA-Za-z+-]*)[\"\']{
 list_match_re = re.compile(r"(?P<leading>[ \t]*)(?P<mark>[-\*+]) +:\w+:")
 
 
-VALID_BUMPS = [
+VALID_BUMPS: list[str] = [
     # none
     "none",
-    # dev
+    # pre-release
     "prerelease",
+    # "alpha",
+    # "beta",
+    # "rc",
+    # post-release
+    # "post",
+    # development
     "dev",
     "development",
     # bugfix
@@ -69,7 +75,7 @@ def server_url(server_name, download=False):
         if download:
             return r"https://test.pypi.org/simple"
         else:
-            return r"https://test.pypi.org/legacy/"
+            return r"https://test.pypi.org/legacy"
     elif server_name in [
         "pypi",
     ]:
@@ -311,7 +317,7 @@ def check_local_install(ctx, version, ext, server="local"):
 
     Returns
     -------
-        str: string summazing operation
+        str: string summarizing operation
 
     """
     here = Path(ctx.releaser.here).resolve()

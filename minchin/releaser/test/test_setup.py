@@ -8,7 +8,7 @@ class Test_Setup(unittest.TestCase):
         """Test we should *always* pass"""
         pass
 
-    def test_version(self):
+    def test_self_version(self):
         """Version is available"""
         self.assertIsNotNone(minchin.releaser.__version__)
 
