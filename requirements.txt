@@ -90,7 +90,7 @@ urllib3==2.6.3
     #   minchin.releaser (setup.py)
     #   requests
     #   twine
-wheel==0.45.1
+wheel==0.46.2
     # via minchin.releaser (setup.py)
 
 # The following packages are considered to be unsafe in a requirements file:
