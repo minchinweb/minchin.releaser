@@ -503,7 +503,7 @@ def check_local_install(ctx, version, ext, server="local"):
     # different...
     if os.name == "nt":
         result = invoke.run(
-            "env{0}{1}{0}{2}{0}python{3} -c "
+            "env{0}{1}{0}{2}{0}python{3} -I -c "  # noqa: UP032
             'exec("""from {4} import __version__\\nprint(__version__)""")'.format(
                 os.sep,
                 environment,
@@ -514,7 +514,7 @@ def check_local_install(ctx, version, ext, server="local"):
         )
     else:
         result = invoke.run(
-            ".{0}env{0}{1}{0}{2}{0}python{3} -c "
+            ".{0}env{0}{1}{0}{2}{0}python{3} -I -c "  # noqa: UP032
             '\'exec(\\"\\"\\"from {4} import __version__\\nprint(__version__)\\"\\"\\")\''.format(
                 os.sep,
                 environment,
