@@ -505,6 +505,11 @@ lint = [
     { name = "isort" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "minchin-tasks" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "black", marker = "extra == 'lint'" },
@@ -526,6 +531,36 @@ requires-dist = [
     { name = "wheel", specifier = ">=0.46.2" },
 ]
 provides-extras = ["build", "docs", "test", "lint"]
+
+[package.metadata.requires-dev]
+dev = [{ name = "minchin-tasks", specifier = ">=1.1.2" }]
+
+[[package]]
+name = "minchin-tasks"
+version = "1.1.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "invoke" },
+    { name = "minchin-text" },
+    { name = "taplo" },
+    { name = "validate-pyproject" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e5/8c/60d5bf25aed4b44f22c3aea08769e18ec6bb38f9ca50474a36898f2b890d/minchin_tasks-1.1.2.tar.gz", hash = "sha256:8dc5699103acea4b16f1ba50146179d263445d6ffc49c7896ffebce160544e9c", size = 7919, upload-time = "2026-10-21T23:32:39.918Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/bb/9c/6b8c5c84a8db9602b5fb1414c589e9e5196c6387c2439ba5eaaeba0436bf/minchin_tasks-1.1.2-py3-none-any.whl", hash = "sha256:23487e13479a6e188f859cc414e1ef5afc69e7ea7d97f77da75b8ea297c70ab1", size = 7723, upload-time = "2026-10-21T23:32:55.718Z" },
+]
+
+[[package]]
+name = "minchin-text"
+version = "7.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/d7/25/3485653a25ac71e3f598350f4caa884ca366d0d22b224dc6e3994d6520e9/minchin_text-7.0.0.tar.gz", hash = "sha256:8b7791afe9ceebff03f6c44c51178e4d2ced0d72d72646b44ea566e3ae36190e", size = 12087, upload-time = "2025-10-25T05:17:33.217Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/91/89/208fcd4ef7edef644cbe5be6bd268367836d92054c3fb2f7885efb548c8c/minchin_text-7.0.0-py3-none-any.whl", hash = "sha256:9c7d247c982753b2d9ce515d71d8e5bc7ed108fffc41a4167b8ae585cefd984a", size = 9207, upload-time = "2025-10-25T05:17:51.441Z" },
+]
 
 [[package]]
 name = "more-itertools"

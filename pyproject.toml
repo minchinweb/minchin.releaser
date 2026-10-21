@@ -136,6 +136,11 @@ lint = [
 # Documentation =
 Repository = "https://github.com/minchinweb/minchin.releaser"
 Changelog = "https://github.com/MinchinWeb/minchin.releaser/blob/master/CHANGELOG.rst"
+
+[dependency-groups]
+dev = [
+    "minchin-tasks>=1.1.2",
+]
 # "Release Notes"
 
 [tool.isort]
