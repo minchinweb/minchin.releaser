@@ -136,6 +136,14 @@ source
 changelog
     (required, but can be set to ``None``) the location of your changelog
     file. This is relative to ``here``.
+changelog_version_line
+    (optional) the line added to your changelog to mark a release. Use the
+    placeholders ``{version}`` and ``{date}`` (as ``YYYY-MM-DD``). Defaults to
+    (to match the sytle of the *`releases
+    <https://github.com/bitprophet/releases>`_* Sphinx extension)::
+
+        - :release:`{version} <{date}>`
+
 version
     (required) the location of where your version string is stored. This is
     relative to ``here``.
@@ -229,7 +237,7 @@ you can re-start.
 
 In particular, many packages are not available on the test version of PyPI, and
 will need to iteratively be added to the configuration under the
-``extra_packages\test`` key.
+``extra_packages.test`` key.
 
 
 Credits
@@ -251,6 +259,7 @@ Sample ``invoke.yaml``
         test: None
         source: minchin
         changelog: changelog.rst
+        changelog_version_line: "- :release:`{version} <{date}>`"
         version: minchin\releaser\constants.py
         test_command: "green -kq"
         version_bump: none

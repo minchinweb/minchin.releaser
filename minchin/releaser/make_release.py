@@ -1,3 +1,4 @@
+import datetime
 import os
 from pathlib import Path
 import re
@@ -41,6 +42,8 @@ version_re = re.compile(
 bare_version_re = re.compile(r"__version__ = [\"\']{1,3}([\.\dA-Za-z+-]*)[\"\']{1,3}")
 list_match_re = re.compile(r"(?P<leading>[ \t]*)(?P<mark>[-\*+]) +:\w+:")
 
+# matches Sphinx's `releases` style
+DEFAULT_CHANGELOG_TEMPLATE = "- :release:`{version} <{date}>`"  # date as YYYY-MM-DD
 
 VALID_BUMPS: list[str] = [
     # none
@@ -233,6 +236,83 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
     shutil.copyfile(str(temp_file), str(Path(ctx.releaser.version).resolve()))
     os.remove(str(temp_file))
     return (old_version, current_version)
+
+
+def update_changelog(ctx, version):
+    """
+    Add a release line to the changelog (in the `releases` Sphinx format).
+
+    Args
+    ----
+        version (Version): the version being released
+
+    Returns
+    -------
+        bool: if the changelog was changed
+
+    """
+    try:
+        changelog_setting = ctx.releaser.changelog
+    except AttributeError:
+        changelog_setting = None
+    if changelog_setting is None or str(changelog_setting).lower() == "none":
+        print(
+            "[{}WARN{}] changelog location not configured. Use key "
+            "'releaser.changelog'. Skipping changelog update.".format(
+                WARNING_COLOR, RESET_COLOR
+            )
+        )
+        return False
+
+    changelog = Path(ctx.releaser.here).resolve() / changelog_setting
+    if not changelog.exists():
+        print(
+            "[{}WARN{}] Changelog file '{}' not found. Not updating.".format(WARNING_COLOR, RESET_COLOR, changelog)
+        )
+        return False
+
+    # newline="" preserves the file's existing line endings
+    with changelog.open(mode="r", encoding="utf-8", newline="") as f:
+        lines = f.readlines()
+
+    try:
+        template = ctx.releaser.changelog_version_line
+    except AttributeError:
+        template = DEFAULT_CHANGELOG_TEMPLATE
+    if template is None or str(template).lower() == "none":
+        template = DEFAULT_CHANGELOG_TEMPLATE
+
+    # everything before the date identifies this version's line
+    release_marker = template.partition("{date}")[0].format(version=version).strip()
+    if release_marker and any(
+        line.lstrip().startswith(release_marker) for line in lines
+    ):
+        print(
+            "[{}WARN{}] Changelog already has an entry for v{}. Not updating "
+            "again.".format(WARNING_COLOR, RESET_COLOR, version)
+        )
+        return False
+
+    newline = "\r\n" if lines and lines[0].endswith("\r\n") else "\n"
+    release_line = (
+        template.format(version=version, date=datetime.date.today().isoformat())
+        + newline
+    )
+
+    # first list item, skipping the title
+    insert_at = next(
+        (i for i, line in enumerate(lines) if list_match_re.match(line)),
+        len(lines),
+    )
+    if insert_at == len(lines) and lines and not lines[-1].endswith(("\n", "\r")):
+        lines[-1] += newline
+    lines.insert(insert_at, release_line)
+
+    with changelog.open(mode="w", encoding="utf-8", newline="") as f:
+        f.writelines(lines)
+
+    print("[{}GOOD{}] Added v{} to Changelog.".format(GOOD_COLOR, RESET_COLOR, version))
+    return True
 
 
 def build_distribution(build_setup_py=True, build_pyproject=None):
@@ -613,13 +693,15 @@ def make_release(
                 WARNING_COLOR, RESET_COLOR
             )
         )
-    else:
+    elif new_version.prerelease:
         print(
-            "[{}WARN{}] I can't do this yet, but you probably should.\n"
-            "           Not updating Changelog.".format(WARNING_COLOR, RESET_COLOR)
+            "[{}WARN{}] Version is a pre-release. Not updating Changelog.".format(
+                WARNING_COLOR, RESET_COLOR
+            )
         )
-        # https://github.com/bitprophet/releases/blob/master/releases/util.py#L21
-        # https://github.com/pyinvoke/invocations/blob/master/invocations/packaging/release.py#L362
+    # TODO: also skip post-releases
+    else:
+        update_changelog(ctx, new_version)
     print()
 
     text.subtitle("Build Documentation")

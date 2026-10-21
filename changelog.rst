@@ -1,6 +1,8 @@
 Changelog
 =========
 
+- :feature:`28` add the new release to the changelog. Customize using the
+  ``releaser.changelog_template`` key in ``invoke.yaml``.
 - :support:`19` Move from ``setup.py`` to ``pyproject.toml`` configuration.
   c.f. `AutoLoader Issue #2`_.
 - :support:`14` Add project logo
