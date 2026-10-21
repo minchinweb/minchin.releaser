@@ -107,7 +107,6 @@ classifiers = [
 
 [project.optional-dependencies]
 build = [
-    "pip-tools",
     # "minchin.releaser >= 0.8.2",
 ]
 docs = [
