@@ -1,5 +1,6 @@
 # task.py file for invoke
 
+
 try:
     from minchin.releaser import make_release
 except ImportError:
@@ -12,5 +13,7 @@ except ImportError:
 
 try:
     from minchin.tasks import update, upgrade, lint, check, format_code
+    # the `test` command defaults to `pytest`, while the package uses `green`.
+    # That said, `pytest` does run the suite.
 except ImportError:
     print("[WARN] Install 'minchin.tasks' for development management tasks.")

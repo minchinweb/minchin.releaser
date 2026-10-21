@@ -139,6 +139,7 @@ Changelog = "https://github.com/MinchinWeb/minchin.releaser/blob/master/CHANGELO
 
 [dependency-groups]
 dev = [
+    "green>=4.0.2",
     "minchin-tasks>=1.1.2",
 ]
 # "Release Notes"

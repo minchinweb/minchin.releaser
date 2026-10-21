@@ -1,12 +1,12 @@
 releaser:
   module_name: minchin.releaser
   here: .
-  docs: .
-  test: None
+  docs: none
+  test: minchin/releaser/tests
   source: minchin
   changelog: CHANGELOG.rst
   version: minchin/releaser/constants.py
-  test_command: "green -kq"
+  test_command: "green -kq minchin.releaser.tests.test_setup"
   version_bump: none
   extra_packages:
     test:

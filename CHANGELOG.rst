@@ -1,17 +1,18 @@
 Changelog
 =========
 
-- :bug:`-` actually re-attempt install of the package if the first time from
-  PyPI (or TestPyPI) fails.
+- :release:`0.10.0 <2026-10-21>`
 - :feature:`-` use ``minchin.tasks`` for common development-related tasks.
 - :support:`-` move from ``pip-tools`` to ``uv`` for dependency management.
+- :bug:`- major` actually re-attempt install of the package if the first time
+  from PyPI (or TestPyPI) fails.
 - :feature:`28` add the new release to the changelog. Customize using the
   ``releaser.changelog_template`` key in ``invoke.yaml``.
 - :support:`19` Move from ``setup.py`` to ``pyproject.toml`` configuration.
   c.f. `AutoLoader Issue #2`_.
 - :support:`14` Add project logo
 - :release:`0.9.6 <2025-10-24>`
-- :bug:`25` add ``setuptools`` as an explicit install requirement.
+- :bug:`25 major` add ``setuptools`` as an explicit install requirement.
 - :release:`0.9.5 <2025-06-14>`
 - :release:`0.9.4 <2025-06-14>`
 - :feature:`- minor` allow several retries to install a package from the PyPI
