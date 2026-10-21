@@ -116,7 +116,7 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
     if bump is not None and bump.lower() not in VALID_BUMPS:
         print(
             textwrap.fill(
-                "[{}WARN{}] bump level, as provided on command "
+                "[{}WARN{}] bump level, as provided on command "  # noqa: UP032
                 "line, is invalid. Trying value given in "
                 "configuration file. Valid values are {}.".format(
                     WARNING_COLOR, RESET_COLOR, VALID_BUMPS_STR
@@ -151,7 +151,7 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
                         )
                         if ans == text.Answers.QUIT:
                             exit(
-                                "[{}ERROR{}] Please set an initial version "
+                                "[{}ERROR{}] Please set an initial version "  # noqa: UP032
                                 "number to continue.".format(ERROR_COLOR, RESET_COLOR)
                             )
 
@@ -161,7 +161,7 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
                             update_level = ctx.releaser.version_bump
                         except AttributeError:
                             print(
-                                "[{}WARN{}] bump level not defined in "
+                                "[{}WARN{}] bump level not defined in "  # noqa: UP032
                                 "configuration. Use key "
                                 "'releaser.version_bump'".format(
                                     WARNING_COLOR, RESET_COLOR
@@ -169,7 +169,7 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
                             )
                             print(
                                 textwrap.fill(
-                                    "{}Valid bump levels are: "
+                                    "{}Valid bump levels are: "  # noqa: UP032
                                     "{}. Or use 'quit' to exit.".format(
                                         " " * 7, VALID_BUMPS_STR
                                     ),
@@ -182,7 +182,7 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
                                 sys.exit(0)
                             elif my_input.lower() not in VALID_BUMPS:
                                 exit(
-                                    "[{}ERROR{}] invalid bump level provided. "
+                                    "[{}ERROR{}] invalid bump level provided. "  # noqa: UP032
                                     "Exiting...".format(ERROR_COLOR, RESET_COLOR)
                                 )
                             else:
@@ -211,7 +211,7 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
                         current_version = old_version
                     else:
                         exit(
-                            "[{}ERROR{}] Cannot update version in {} mode".format(
+                            "[{}ERROR{}] Cannot update version in {} mode".format(  # noqa: UP032
                                 ERROR_COLOR, RESET_COLOR, update_level
                             )
                         )
@@ -219,7 +219,7 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
                     # warn on pre-release versions
                     if current_version.prerelease and not ignore_prerelease:
                         ans = text.query_yes_quit(
-                            "[{}WARN{}] Current version "
+                            "[{}WARN{}] Current version "  # noqa: UP032
                             "is a pre-release version. "
                             "Continue anyway?".format(WARNING_COLOR, RESET_COLOR),
                             default="quit",
@@ -227,10 +227,10 @@ def update_version_number(ctx, bump=None, ignore_prerelease=False):
                         if ans == text.Answers.QUIT:
                             sys.exit(1)
 
-                    print("{}New version is     {}".format(" " * 4, current_version))
+                    print("{}New version is     {}".format(" " * 4, current_version))  # noqa: UP032
 
                     # Update version number
-                    line = '__version__ = "{}"\n'.format(current_version)
+                    line = f'__version__ = "{current_version}"\n'
                 print(line, file=g, end="")
         # print('', file=g)  # add a blank line at the end of the file
     shutil.copyfile(str(temp_file), str(Path(ctx.releaser.version).resolve()))
@@ -257,7 +257,7 @@ def update_changelog(ctx, version):
         changelog_setting = None
     if changelog_setting is None or str(changelog_setting).lower() == "none":
         print(
-            "[{}WARN{}] changelog location not configured. Use key "
+            "[{}WARN{}] changelog location not configured. Use key "  # noqa: UP032
             "'releaser.changelog'. Skipping changelog update.".format(
                 WARNING_COLOR, RESET_COLOR
             )
@@ -267,7 +267,7 @@ def update_changelog(ctx, version):
     changelog = Path(ctx.releaser.here).resolve() / changelog_setting
     if not changelog.exists():
         print(
-            "[{}WARN{}] Changelog file '{}' not found. Not updating.".format(WARNING_COLOR, RESET_COLOR, changelog)
+            "[{}WARN{}] Changelog file '{}' not found. Not updating.".format(WARNING_COLOR, RESET_COLOR, changelog)  # noqa: UP032
         )
         return False
 
@@ -288,7 +288,7 @@ def update_changelog(ctx, version):
         line.lstrip().startswith(release_marker) for line in lines
     ):
         print(
-            "[{}WARN{}] Changelog already has an entry for v{}. Not updating "
+            "[{}WARN{}] Changelog already has an entry for v{}. Not updating "  # noqa: UP032
             "again.".format(WARNING_COLOR, RESET_COLOR, version)
         )
         return False
@@ -311,7 +311,7 @@ def update_changelog(ctx, version):
     with changelog.open(mode="w", encoding="utf-8", newline="") as f:
         f.writelines(lines)
 
-    print("[{}GOOD{}] Added v{} to Changelog.".format(GOOD_COLOR, RESET_COLOR, version))
+    print("[{}GOOD{}] Added v{} to Changelog.".format(GOOD_COLOR, RESET_COLOR, version))  # noqa: UP032
     return True
 
 
@@ -327,13 +327,13 @@ def build_distribution(build_setup_py=True, build_pyproject=None):
     result = invoke.run(build_command, warn=True, hide=True)
     if result.ok:
         print(
-            "[{}GOOD{}] Distribution built without errors.".format(
+            "[{}GOOD{}] Distribution built without errors.".format(  # noqa: UP032
                 GOOD_COLOR, RESET_COLOR
             )
         )
     else:
         print(
-            "[{}ERROR{}] Something broke trying to package your "
+            "[{}ERROR{}] Something broke trying to package your "  # noqa: UP032
             "code...".format(ERROR_COLOR, RESET_COLOR)
         )
         print(result.stderr)
@@ -370,18 +370,18 @@ def other_dependencies(ctx, server, environment):
 
         for pkg in extra_pkgs:
             result = invoke.run(
-                ".{0}env{0}{1}{0}{2}{0}pip{3} install {4}".format(
+                ".{0}env{0}{1}{0}{2}{0}pip{3} install {4}".format(  # noqa: UP032
                     os.sep, environment, VENV_BIN, PIP_EXT, pkg
                 ),
                 hide=True,
             )
             if result.ok:
                 print(
-                    "{}[{}GOOD{}] Installed {}".format("", GOOD_COLOR, RESET_COLOR, pkg)
+                    "{}[{}GOOD{}] Installed {}".format("", GOOD_COLOR, RESET_COLOR, pkg)  # noqa: UP032
                 )
             else:
                 print(
-                    "{}[{}ERROR{}] Something broke trying to install "
+                    "{}[{}ERROR{}] Something broke trying to install "  # noqa: UP032
                     "package: {}".format("", ERROR_COLOR, RESET_COLOR, pkg)
                 )
                 print(result.stderr)
@@ -403,28 +403,28 @@ def check_local_install(ctx, version, ext, server="local"):
     here = Path(ctx.releaser.here).resolve()
     dist_dir = here / "dist"
 
-    all_files = list(dist_dir.glob("*.{}".format(ext)))
+    all_files = list(dist_dir.glob(f"*.{ext}"))
     the_file = all_files[0]
     for f in all_files[1:]:
         if f.stat().st_mtime > the_file.stat().st_mtime:
             the_file = f
             # this is the latest generated file of the given version
 
-    environment = "env-{}-{}-{}".format(version, ext, server)
+    environment = f"env-{version}-{ext}-{server}"
     if server == "local":
         pass
     else:
         # upload to server
         print("** Uploading to server **")
-        cmd = "twine upload {}".format(the_file)
+        cmd = f"twine upload {the_file}"
         # for PyPI, let twine pick the server
         if server != "pypi":
-            cmd = cmd + " -r {}".format(server)
+            cmd = cmd + f" -r {server}"
         result = invoke.run(cmd, warn=True)
         if result.failed:
             print(
                 textwrap.fill(
-                    "[{}ERROR{}] Something broke trying to upload "
+                    "[{}ERROR{}] Something broke trying to upload "  # noqa: UP032
                     "your package. This will be the case if you "
                     "have already uploaded it before. To upload "
                     "again, use a different version number "
@@ -440,7 +440,7 @@ def check_local_install(ctx, version, ext, server="local"):
     # remove directory if it exists
     if (here / "env" / environment).exists():
         shutil.rmtree("env" + os.sep + environment)
-    invoke.run("python -m venv env{}{}".format(os.sep, environment))
+    invoke.run(f"python -m venv env{os.sep}{environment}")
     other_dependencies(ctx, server, environment)
 
     pip_args = " --no-cache"
@@ -451,7 +451,7 @@ def check_local_install(ctx, version, ext, server="local"):
 
     if server == "local":
         result = invoke.run(
-            ".{0}env{0}{1}{0}{2}{0}pip{3} install {4}{5}".format(
+            ".{0}env{0}{1}{0}{2}{0}pip{3} install {4}{5}".format(  # noqa: UP032
                 os.sep,
                 environment,
                 VENV_BIN,
@@ -526,11 +526,11 @@ def check_local_install(ctx, version, ext, server="local"):
     test_version = result.stdout.strip()
     # print(test_version, type(test_version), type(expected_version))
     if Version(test_version) == version:
-        results = "{}{} install {} works!{}".format(
+        results = "{}{} install {} works!{}".format(  # noqa: UP032
             GOOD_COLOR, server, ext, RESET_COLOR
         )
     else:
-        results = "{}{} install {} broken{}".format(
+        results = "{}{} install {} broken{}".format(  # noqa: UP032
             ERROR_COLOR, server, ext, RESET_COLOR
         )
     print(results)
@@ -542,7 +542,7 @@ def check_local_install(ctx, version, ext, server="local"):
     help={
         "bump": "What level to bump the version by. Setting this "
         "overrides the value set in your configuration. "
-        "Valid bump levels are {}.".format(VALID_BUMPS_STR),
+        f"Valid bump levels are {VALID_BUMPS_STR}.",
         "skip-isort": "Skip applying isort to your files.",
         "skip-local": "Skip testing by installing from local build " "distribution.",
         "skip-test": "Skip testing by uploading and installing to test " "PyPI server.",
@@ -555,7 +555,7 @@ def make_release(
 ):
     """Make and upload the release."""
     colorama.init()
-    text.title("Minchin 'Make Release' for Python Projects v{}".format(__version__))
+    text.title(f"Minchin 'Make Release' for Python Projects v{__version__}")
     print()
 
     text.subtitle("Configuration")
@@ -607,7 +607,7 @@ def make_release(
         repo = None
         print(
             textwrap.fill(
-                "[{}WARN{}] base directory does not appear to be "
+                "[{}WARN{}] base directory does not appear to be "  # noqa: UP032
                 "a valid git repo.".format(WARNING_COLOR, RESET_COLOR),
                 width=text.get_terminal_size().columns - 1,
                 subsequent_indent=" " * 7,
@@ -618,7 +618,7 @@ def make_release(
         if repo.is_dirty():
             print(
                 textwrap.fill(
-                    "[{}WARN{}] git repo is dirty. You should "
+                    "[{}WARN{}] git repo is dirty. You should "  # noqa: UP032
                     "probably commit your changes before "
                     "continuing.".format(WARNING_COLOR, RESET_COLOR),
                     width=text.get_terminal_size().columns - 1,
@@ -632,7 +632,7 @@ def make_release(
             if ans == text.Answers.QUIT:
                 sys.exit(1)
         else:
-            print("[{}GOOD{}] Clean Git repo.".format(GOOD_COLOR, RESET_COLOR))
+            print("[{}GOOD{}] Clean Git repo.".format(GOOD_COLOR, RESET_COLOR))  # noqa: UP032
     print()
 
     text.subtitle("Sort Import Statements")
@@ -646,7 +646,7 @@ def make_release(
                 print(".", end="")
         print(" Done!")
     else:
-        print("[{}WARN{}] Skipped!".format(WARNING_COLOR, RESET_COLOR))
+        print("[{}WARN{}] Skipped!".format(WARNING_COLOR, RESET_COLOR))  # noqa: UP032
     print()
 
     if "vendor_packages" in ctx.releaser.keys():
@@ -661,7 +661,7 @@ def make_release(
         cmd_none = (ctx.releaser.test_command).lower()
     except AttributeError:
         print(
-            "[{}WARN{}] test command not configured. Use key "
+            "[{}WARN{}] test command not configured. Use key "  # noqa: UP032
             "'releaser.test_command'.".format(WARNING_COLOR, RESET_COLOR)
         )
         cmd_none = "none"
@@ -669,7 +669,7 @@ def make_release(
         result = invoke.run(ctx.releaser.test_command, warn=True)
         if not result.ok:
             print(
-                "[{}WARN{}] the test suite reported errors.".format(
+                "[{}WARN{}] the test suite reported errors.".format(  # noqa: UP032
                     WARNING_COLOR, RESET_COLOR
                 )
             )
@@ -679,7 +679,7 @@ def make_release(
             if ans == text.Answers.QUIT:
                 sys.exit(1)
     else:
-        print("[{}WARN{}] No test command given.".format(WARNING_COLOR, RESET_COLOR))
+        print("[{}WARN{}] No test command given.".format(WARNING_COLOR, RESET_COLOR))  # noqa: UP032
     print()
 
     text.subtitle("Update Version Number")
@@ -689,13 +689,13 @@ def make_release(
     text.subtitle("Add Release to Changelog")
     if old_version == new_version:
         print(
-            "[{}WARN{}] Version hasn't changed. Not updating Changelog.".format(
+            "[{}WARN{}] Version hasn't changed. Not updating Changelog.".format(  # noqa: UP032
                 WARNING_COLOR, RESET_COLOR
             )
         )
     elif new_version.prerelease:
         print(
-            "[{}WARN{}] Version is a pre-release. Not updating Changelog.".format(
+            "[{}WARN{}] Version is a pre-release. Not updating Changelog.".format(  # noqa: UP032
                 WARNING_COLOR, RESET_COLOR
             )
         )
@@ -709,7 +709,7 @@ def make_release(
         cmd_none = (ctx.releaser.doc_command).lower()
     except (AttributeError, KeyError):
         print(
-            "[{}WARN{}] documentation generation command not configured.\n"
+            "[{}WARN{}] documentation generation command not configured.\n"  # noqa: UP032
             "           Use key 'releaser.doc_command'.".format(
                 WARNING_COLOR, RESET_COLOR
             )
@@ -719,7 +719,7 @@ def make_release(
         result = invoke.run(ctx.releaser.doc_command, warn=True)
         if not result.ok:
             print(
-                "[{}WARN{}] the documentation generation reported errors.".format(
+                "[{}WARN{}] the documentation generation reported errors.".format(  # noqa: UP032
                     WARNING_COLOR, RESET_COLOR
                 )
             )
@@ -730,7 +730,7 @@ def make_release(
                 sys.exit(1)
     else:
         print(
-            "[{}WARN{}] No docmentation generation command given.".format(
+            "[{}WARN{}] No docmentation generation command given.".format(  # noqa: UP032
                 WARNING_COLOR, RESET_COLOR
             )
         )
@@ -749,7 +749,7 @@ def make_release(
     result = invoke.run("twine check dist/*", warn=True)
     if not result.ok:
         print(
-            "[{}WARN{}] Readme reported ReST rendering errors.".format(
+            "[{}WARN{}] Readme reported ReST rendering errors.".format(  # noqa: UP032
                 WARNING_COLOR, RESET_COLOR
             )
         )
@@ -757,7 +757,7 @@ def make_release(
         if ans == text.Answers.QUIT:
             sys.exit(1)
     else:
-        print("[{}GOOD{}] Readme renders.".format(GOOD_COLOR, RESET_COLOR))
+        print("[{}GOOD{}] Readme renders.".format(GOOD_COLOR, RESET_COLOR))  # noqa: UP032
     print()
 
     server_list = []
@@ -771,7 +771,7 @@ def make_release(
     success_list = []
     for server in server_list:
         for file_format in ["tar.gz", "whl"]:
-            text.subtitle("Test {} Build {}".format(file_format, server))
+            text.subtitle("Test {} Build {}".format(file_format, server))  # noqa: UP032
             s = check_local_install(ctx, new_version, file_format, server)
             success_list.append(s)
             print()
@@ -792,7 +792,7 @@ def make_release(
         for tag in tags:
             if tag.name == new_version:
                 print(
-                    "[{}WARN{}] Git tag for version {} already exists. "
+                    "[{}WARN{}] Git tag for version {} already exists. "  # noqa: UP032
                     "Skipping.".format(WARNING_COLOR, RESET_COLOR, tag.name)
                 )
                 _create_tag = False
@@ -801,7 +801,7 @@ def make_release(
         # warn on pre-release versions
         if new_version.prerelease:
             print(
-                "[{}WARN{}] Currently a pre-release version.".format(
+                "[{}WARN{}] Currently a pre-release version.".format(  # noqa: UP032
                     WARNING_COLOR, RESET_COLOR
                 )
             )
@@ -811,13 +811,13 @@ def make_release(
                 _create_tag = False
         else:
             ans = text.query_yes_no(
-                "Create Git tag for version {}?".format(new_version), default="no"
+                f"Create Git tag for version {new_version}?", default="no"
             )
             if ans == text.Answers.NO:
                 _create_tag = False
 
         if _create_tag:
-            print("Creating Git tag for version {}".format(new_version))
+            print(f"Creating Git tag for version {new_version}")
             repo.create_tag(new_version)
         print()
 
