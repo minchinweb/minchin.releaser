@@ -14,6 +14,7 @@ __license__ = "MIT License"
 ERROR_COLOR = colorama.Fore.RED
 WARNING_COLOR = colorama.Fore.YELLOW
 GOOD_COLOR = colorama.Fore.GREEN
+INFO_COLOR = colorama.Fore.CYAN
 RESET_COLOR = colorama.Style.RESET_ALL
 
 # on Windows, this should be '.exe', but we get away with setting it to

@@ -5,6 +5,7 @@ import re
 import shutil
 import sys
 import textwrap
+import time
 
 import colorama
 import git  # packaged as 'gitpython'
@@ -22,6 +23,7 @@ from ._vendor import text
 from .constants import (
     ERROR_COLOR,
     GOOD_COLOR,
+    INFO_COLOR,
     INSTALL_RETRIES,
     PIP_EXT,
     RESET_COLOR,
@@ -466,36 +468,42 @@ def check_local_install(ctx, version, ext, server="local"):
         install_try_count = 0
         while True:
             install_try_count = install_try_count + 1
-            try:
-                result = invoke.run(
-                    ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(
-                        os.sep,
-                        environment,
-                        VENV_BIN,
-                        PIP_EXT,
-                        server_url(server, download=True),
-                        pypi_name(ctx),
-                        version,
-                        pip_args,
-                    ),
-                    hide=True,
-                    warn=True,  # so we don't bail if the command fails
-                )
-            except invoke.exceptions.Failure:
-            # if result.failed:
-                print(
-                    "[{}ERROR{}] Something broke trying to install your package.".format(
-                        ERROR_COLOR, RESET_COLOR
-                    )
-                )
-                print(result.stderr)
-
-                if install_try_count > INSTALL_RETRIES:
-                    print("    ** Waiting 30 seconds to try again... **")
-                else:
-                    sys.exit(1)
-            finally:
+            result = invoke.run(
+                ".{0}env{0}{1}{0}{2}{0}pip{3} install -i {4} {5}=={6}{7}".format(  # noqa: UP032
+                    os.sep,
+                    environment,
+                    VENV_BIN,
+                    PIP_EXT,
+                    server_url(server, download=True),
+                    pypi_name(ctx),
+                    version,
+                    pip_args,
+                ),
+                hide=True,
+                warn=True,  # so we don't bail if the command fails
+            )
+            if result.ok:
                 break
+
+            print(
+                "[{}ERROR{}] Something broke trying to install your package.".format(  # noqa: UP032
+                    ERROR_COLOR, RESET_COLOR
+                )
+            )
+            print(result.stderr)
+
+            if install_try_count > INSTALL_RETRIES:
+                sys.exit(1)
+            # the server may not have finished processing the upload yet
+            print(
+                "[{}INFO{}] Install attempt {}/{} failed. Waiting 30s to try again... ".format(  # noqa: UP032
+                    INFO_COLOR,
+                    RESET_COLOR,
+                    install_try_count,
+                    INSTALL_RETRIES + 1,
+                )
+            )
+            time.sleep(30)
 
     print("** Test version of installed package **")
 

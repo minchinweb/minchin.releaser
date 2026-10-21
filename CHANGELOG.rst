@@ -1,6 +1,8 @@
 Changelog
 =========
 
+- :bug:`-` actually re-attempt install of the package if the first time from
+  PyPI (or TestPyPI) fails.
 - :feature:`28` add the new release to the changelog. Customize using the
   ``releaser.changelog_template`` key in ``invoke.yaml``.
 - :support:`19` Move from ``setup.py`` to ``pyproject.toml`` configuration.
