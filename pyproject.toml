@@ -135,7 +135,7 @@ lint = [
 "Bug Tracker" = "https://github.com/MinchinWeb/minchin.releaser/issues"
 # Documentation =
 Repository = "https://github.com/minchinweb/minchin.releaser"
-Changelog = "https://github.com/MinchinWeb/minchin.releaser/blob/master/changelog.rst"
+Changelog = "https://github.com/MinchinWeb/minchin.releaser/blob/master/CHANGELOG.rst"
 # "Release Notes"
 
 [tool.isort]

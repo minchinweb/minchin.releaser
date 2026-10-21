@@ -4,7 +4,7 @@ releaser:
   docs: .
   test: None
   source: minchin
-  changelog: changelog.rst
+  changelog: CHANGELOG.rst
   version: minchin/releaser/constants.py
   test_command: "green -kq"
   version_bump: none

@@ -258,7 +258,7 @@ Sample ``invoke.yaml``
         docs: .
         test: None
         source: minchin
-        changelog: changelog.rst
+        changelog: CHANGELOG.rst
         changelog_version_line: "- :release:`{version} <{date}>`"
         version: minchin\releaser\constants.py
         test_command: "green -kq"
